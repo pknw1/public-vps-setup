@@ -1,10 +1,8 @@
 #!/bin/bash
 apt update
 apt upgrade -y
-apt install -y aptitude
-aptitude install -y encfs git wget certbot nfs-kernel-server nfs-common openvpn-as-bundled-clients openvpn-as tightvncserver xfce4 xfce4-goodies xfdesktop4 xrdp apt-transport-https ca-certificates curl gnupg-agent software-properties-common rar
-#!/bin/bash
-
+apt install -y aptitude --force-yes
+aptitude install -y encfs git wget certbot nfs-kernel-server nfs-common openvpn-as-bundled-clients openvpn-as tightvncserver xfce4 xfce4-goodies xfdesktop4 xrdp apt-transport-https ca-certificates curl gnupg-agent software-properties-common rar --force-yes
 
 mkdir -p /etc/skel/.ssh 
 ssh-keygen -t rsa -b 4096 -P "" -f /etc/skel/.ssh/$(hostname)-server
@@ -23,22 +21,21 @@ useradd -d /home/plex -g 666 -m -s /bin/bash -u 666 -G sudo plex#!/bin/bash
 wget -q https://downloads.plex.tv/plex-keys/PlexSign.key -O - | apt-key add -
 add-apt-repository  "deb https://downloads.plex.tv/repo/deb/ public main"
 apt update
-aptitude install -y plexmediaserver
+aptitude install -y plexmediaserver --force-yes
 
 ## webmin
 wget -q http://www.webmin.com/jcameron-key.asc -O - | apt-key add -
 add-apt-repository "deb http://download.webmin.com/download/repository sarge contrib"
 apt update
-aptitude install -y webmin
+aptitude install -y webmin --force-yes
 
 ## docker
 apt-get remove -y docker docker-engine docker.io containerd runc
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 apt update -y
-aptitude install -y docker-ce docker-ce-cli containerd.io
+aptitude install -y docker-ce docker-ce-cli containerd.io --force-yes
 sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose
-#!/bin/bash
 
 curl https://rclone.org/install.sh | bash
 
